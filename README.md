@@ -11,7 +11,6 @@ It allows users to visually construct complex filtering logic and transform it i
 - Nested rule groups with independent combinators
 - Custom operators (including advanced date logic)
 - Date and date-range support
-- JSON Logic output
 - SQL / Prisma-compatible query transformation
 - PostgreSQL integration
 - Fully type-safe with TypeScript
@@ -30,16 +29,14 @@ It allows users to visually construct complex filtering logic and transform it i
 ### Query & State Management
 - react-querybuilder
 - @tanstack/react-query
-- json-logic-js
 
 ### Database
 - Prisma
 - PostgreSQL
-- pg
 
 ### UI & Styling
 - Tailwind CSS v4
-- Radix UI
+- shadcn
 - lucide-react
 - @tabler/icons-react
 - class-variance-authority
