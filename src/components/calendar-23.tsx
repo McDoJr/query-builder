@@ -206,7 +206,7 @@ export default function Calendar23({
                       Cancel
                     </Button>
                     <Button
-                      className="text-foreground"
+                      className="text-primary-foreground"
                       size="sm"
                       onClick={() => {
                         setOpen(false);
