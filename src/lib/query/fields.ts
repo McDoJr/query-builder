@@ -7,28 +7,24 @@ export const defaultFields: Field[] = [
     label: "Name",
     inputType: "text",
     placeholder: "Value...",
-    rows: [],
   },
   {
     name: "age",
     label: "Age",
     inputType: "number",
     placeholder: "Value...",
-    rows: [],
   },
   {
     name: "address",
     label: "Address",
     inputType: "text",
     placeholder: "Value...",
-    rows: [],
   },
   {
     name: "phone",
     label: "Phone",
     inputType: "text",
     placeholder: "Value...",
-    rows: [],
   },
   {
     name: "email",
@@ -36,14 +32,12 @@ export const defaultFields: Field[] = [
     inputType: "text",
     placeholder: "Value...",
     validator: ({ value }) => /^[^@]+@[^@]+/.test(value),
-    rows: [],
   },
   {
     name: "twitter",
     label: "Twitter",
     inputType: "text",
     placeholder: "Value...",
-    rows: [],
   },
   {
     name: "isDev",
@@ -51,21 +45,18 @@ export const defaultFields: Field[] = [
     placeholder: "Value...",
     valueEditorType: "checkbox",
     defaultValue: false,
-    rows: [],
   },
   {
     name: "createdAt",
     label: "Created",
     inputType: "date",
     placeholder: "Value...",
-    rows: [],
   },
   {
     name: "birthdate",
     label: "Birthdate",
     inputType: "date",
     placeholder: "Value...",
-    rows: [],
   },
 ];
 
