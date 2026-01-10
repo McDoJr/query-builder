@@ -1,15 +1,4 @@
-import {
-  defaultRuleProcessorJsonLogic,
-  RuleGroupTypeIC,
-  RuleProcessor,
-} from "react-querybuilder";
-
-export const customRuleProcessor: RuleProcessor = (rule, options) => {
-  if (rule.operator === "isNumeric" || rule.operator === "isNotNumeric") {
-    return { [rule.operator]: [{ var: rule.field }, rule.value] };
-  }
-  return defaultRuleProcessorJsonLogic(rule, options);
-};
+import { RuleGroupTypeIC } from "react-querybuilder";
 
 export function getBeforeAfterCombinators(
   rules: RuleGroupTypeIC["rules"],
