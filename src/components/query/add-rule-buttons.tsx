@@ -72,8 +72,5 @@ export const onAddRule = (
   return {
     ...rule,
     field: context,
-    // operator: "=",
-    // You might need a function to determine the appropriate default value based on the field type
-    // value: fieldData.defaultValue || "",
   };
 };
