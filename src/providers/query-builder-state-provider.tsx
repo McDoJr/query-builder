@@ -14,34 +14,21 @@ import {
   useRef,
   useState,
 } from "react";
-import {
-  Field,
-  generateID,
-  InputType,
-  RuleGroupTypeIC,
-} from "react-querybuilder";
+import { Field, generateID, RuleGroupTypeIC } from "react-querybuilder";
 
 type PopoverState = { id: string; open: boolean };
 
 type QueryBuilderState = {
-  // fields: FieldFor<User>[];
   fields: Field[];
   query: RuleGroupTypeIC;
   popovers: PopoverState[];
 };
 
 type QueryBuilderActions = {
-  // setFields: Dispatch<SetStateAction<FieldFor<User>[]>>;
   setFields: Dispatch<SetStateAction<Field[]>>;
   setPopovers: Dispatch<SetStateAction<PopoverState[]>>;
   updatePopoverByGroupID: (groupId: string | undefined, open: boolean) => void;
   setQuery: Dispatch<SetStateAction<RuleGroupTypeIC>>;
-  // updateField: (
-  //   ruleId: string,
-  //   name: string,
-  //   type: InputType,
-  //   action: FieldRowAction,
-  // ) => void;
 };
 
 export const QueryBuilderStateContext = createContext<QueryBuilderState | null>(
@@ -103,11 +90,9 @@ export default function QueryBuilderStateProvider({
       const exists = prev.some((p) => p.id === groupId);
 
       if (!exists) {
-        // add if not exists
         return [...prev, { id: groupId, open }];
       }
 
-      // update if exists
       return prev.map((p) => (p.id === groupId ? { ...p, open } : p));
     });
   }
