@@ -16,13 +16,13 @@ import { CombinatorSelector } from "./query/combinator-selector";
 import { ValueEditor } from "./query/value-editor";
 import { RuleGroup, RuleGroupBodyComponents } from "./query/rule-group";
 import { AddRuleButtons, onAddRule } from "./query/add-rule-buttons";
-import RemoveActionElement from "./query/action-element";
 import {
   useQueryBuilderActions,
   useQueryBuilderState,
 } from "@/providers/query-builder-state-provider";
 import { useQueryActions } from "@/hooks/use-query-actions";
 import OperatorSelector from "./query/operator-selector";
+import RemoveActionElement from "./query/remove-action-element";
 
 export default function QueryBuilderClient() {
   const { fields, query } = useQueryBuilderState();
