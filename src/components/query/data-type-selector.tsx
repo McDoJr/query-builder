@@ -1,3 +1,5 @@
+"use client";
+
 import { useQueryActions } from "@/hooks/use-query-actions";
 import {
   useQueryBuilderActions,
@@ -11,7 +13,6 @@ import { getIcon } from "@/lib/query/icons";
 import { Separator } from "../ui/separator";
 import { CopyPlus } from "lucide-react";
 import { generateID, RuleGroupTypeIC, RuleType } from "react-querybuilder";
-import { DateRangeUnit } from "@/types/types";
 
 type DataTypeSelectorProps = {
   field: string;

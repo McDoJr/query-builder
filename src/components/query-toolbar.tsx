@@ -1,3 +1,5 @@
+"use client";
+
 import { Dispatch, PropsWithChildren, SetStateAction, useMemo } from "react";
 import { Button } from "./ui/button";
 import { formatNumber } from "@/lib/utils";

@@ -2,7 +2,7 @@
 
 import { useQueryActions } from "@/hooks/use-query-actions";
 import { defaultFields } from "@/lib/query/fields";
-import { FieldRow, FieldRowAction, RuleRef } from "@/types/types";
+import { RuleRef } from "@/types/types";
 import {
   createContext,
   Dispatch,
