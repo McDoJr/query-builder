@@ -169,7 +169,7 @@ export const ValueEditor = memo(function ValueEditor<F extends FullField>(
         placeholder={placeholder}
         value={localValue}
         title={title}
-        className={className}
+        className={cn(className, "placeholder:text-primary")}
         disabled={disabled}
         onChange={(e) => setLocalValue(e.target.value)}
         onBlur={commitSingleValue}

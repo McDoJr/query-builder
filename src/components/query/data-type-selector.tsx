@@ -121,7 +121,11 @@ export default function DataTypeSelector(props: DataTypeSelectorProps) {
                 }}
                 className="justify-start"
               >
-                {<Icon />}
+                {
+                  <Icon
+                    className={item.value === "text" ? "size-5" : "size-4"}
+                  />
+                }
                 <p className="capitalize">{item.label}</p>
               </Button>
             );

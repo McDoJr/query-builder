@@ -49,7 +49,7 @@ export default function QueryBuilderClient() {
         ruleGroupBodyElements: RuleGroupBodyComponents,
       },
       classNames: {
-        rule: "flex items-center gap-2",
+        rule: "flex items-center justify-start gap-2",
       },
     }),
     [],
