@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/table";
 import { Spinner } from "./ui/spinner";
 
+// component from shadcn
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];

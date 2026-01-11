@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { RuleGroupTypeIC } from "react-querybuilder";
 
 export function useUsers(query: RuleGroupTypeIC, search: string, sort: Sort) {
+  // normalize the query to be used as a key
   const normalized = normalizeQuery({ query, search, sort });
 
   return useQuery<User[]>({

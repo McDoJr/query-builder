@@ -34,7 +34,6 @@ const DateValueEditor = React.memo(function DateValueEditor<
     const values = [toISODateLocal(range.from), toISODateLocal(range.to)];
     if (withUnitOperator && range.unit) values.push(range.unit);
     handleOnChange(withUnitOperator ? values.join(",") : values);
-    console.log(values);
   }
 
   function getDateDefaultValue(): CustomDateRange | undefined {

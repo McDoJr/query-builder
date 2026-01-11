@@ -33,6 +33,7 @@ type Calendar23Props = React.ComponentProps<"button"> & {
   operator: string;
 };
 
+// from shadcn component block that was modified
 export default function Calendar23({
   defaultRangeValue,
   commitDateRange,
@@ -84,6 +85,7 @@ export default function Calendar23({
     }
   };
 
+  // get the current rendered text
   function getTextValue() {
     if (withHeader && value) return `${value} ${unit}`;
     return range?.from && range?.to

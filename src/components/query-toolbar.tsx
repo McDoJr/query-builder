@@ -31,6 +31,7 @@ export default function QueryToolbar({
   const { setQuery } = useQueryBuilderActions();
   const { saveQueryToUrl } = useQueryActions();
 
+  // will be used to control rendering the add group button below
   const hasNonEmptySubGroup = useMemo(
     () => query.rules.some((r) => isRuleGroup(r) && r.rules.length > 0),
     [query],
@@ -38,6 +39,7 @@ export default function QueryToolbar({
 
   const toggleHideFilter = () => props.setHideFilter((prev) => !prev);
 
+  // function for adding group
   function addGroup() {
     setQuery(
       (prev) =>

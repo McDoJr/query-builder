@@ -21,9 +21,11 @@ export default function App() {
   const [hideFilter, setHideFilter] = useState(false);
   const [sort, setSort] = useState<Sort>({});
   const [search, setSearch] = useState<string>("");
+  // debounced it so it will only search after user is done typing
   const debouncedSearch = useDebouncedValue(search);
   const { data, isFetching } = useUsers(query, debouncedSearch, sort);
 
+  // for toggling sort
   const toggleSort = useCallback((key: SortKey) => {
     setSort((prev) => {
       if (prev.key !== key) {

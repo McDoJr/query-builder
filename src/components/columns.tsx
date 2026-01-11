@@ -3,6 +3,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { cn, formatDate } from "@/lib/utils";
 import { ColumnsMeta, User } from "@/types/types";
 
+// sorting icons
 function SortIcons({
   active,
   order,
@@ -33,6 +34,8 @@ function SortIcons({
   );
 }
 
+// data-table columns
+// I use tanstack-table library for easy table management
 export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "name",

@@ -12,7 +12,7 @@ import { IconDots } from "@tabler/icons-react";
 import { getIcon } from "@/lib/query/icons";
 import { Separator } from "../ui/separator";
 import { CopyPlus } from "lucide-react";
-import { generateID, RuleGroupTypeIC, RuleType } from "react-querybuilder";
+import { duplicateRuleById, updateRule } from "@/lib/query/rules";
 
 type DataTypeSelectorProps = {
   field: string;
@@ -20,63 +20,7 @@ type DataTypeSelectorProps = {
   id?: string;
 };
 
-function updateRule(
-  rules: RuleGroupTypeIC["rules"],
-  ruleId: string,
-  inputType: string,
-): RuleGroupTypeIC["rules"] {
-  return rules.map((r) => {
-    if (typeof r === "object" && "rules" in r) {
-      return { ...r, rules: updateRule(r.rules, ruleId, inputType) };
-    }
-
-    if (typeof r === "object" && r.id === ruleId) {
-      return {
-        ...r,
-        operator: "=",
-        inputType,
-        value: "",
-      };
-    }
-
-    return r;
-  }) as RuleGroupTypeIC["rules"];
-}
-
-export function duplicateRuleById(
-  rules: RuleGroupTypeIC["rules"],
-  targetRuleId: string,
-): RuleGroupTypeIC["rules"] {
-  const result = [];
-
-  for (const r of rules) {
-    // Nested group
-    if (typeof r === "object" && r && "rules" in r) {
-      result.push({
-        ...r,
-        rules: duplicateRuleById(r.rules, targetRuleId),
-      });
-      continue;
-    }
-
-    result.push(r);
-
-    if (typeof r === "object" && r && r.id === targetRuleId) {
-      result.push("and");
-      result.push(cloneRule(r));
-    }
-  }
-
-  return result as RuleGroupTypeIC["rules"];
-}
-
-function cloneRule(rule: RuleType): RuleType {
-  return {
-    ...structuredClone(rule),
-    id: generateID(),
-  };
-}
-
+// component to be used for changing a rule's data type
 export default function DataTypeSelector(props: DataTypeSelectorProps) {
   const { query } = useQueryBuilderState();
   const { setQuery } = useQueryBuilderActions();

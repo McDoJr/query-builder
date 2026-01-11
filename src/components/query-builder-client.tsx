@@ -31,6 +31,7 @@ export default function QueryBuilderClient() {
 
   const [groupIds, setGroupIds] = useState<string[]>([]);
 
+  // memoized it for best practices but enabling react-compiler is a much better approach
   const controls = useMemo<{
     elements: ControlElementsProp<any, any>;
     classNames: Partial<Classnames> | undefined;
@@ -55,6 +56,7 @@ export default function QueryBuilderClient() {
     [],
   );
 
+  // for tracking groups so we can remove empty groups when a rule was removed just like in mixpanel
   function normalizeQuery(
     query: RuleGroupTypeIC,
     groupIds: string[],
@@ -123,18 +125,18 @@ export default function QueryBuilderClient() {
     };
   }
 
+  // query change handler
   function onQueryChange(q: RuleGroupTypeIC) {
     const { query, groupIds: ids } = normalizeQuery(q, groupIds);
     setQuery(query);
+    // clean unused/removed popovers
     setPopovers((prevPopovers) =>
       prevPopovers.filter((p) => ids.includes(p.id)),
     );
+    // track touched groups
     setGroupIds(ids);
+    // save query to url so we can recover it on page reload
     saveQueryToUrl(query);
-  }
-
-  if (!fields.length) {
-    return null;
   }
 
   return (

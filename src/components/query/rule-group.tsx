@@ -95,6 +95,7 @@ export const RuleGroup: React.MemoExoticComponent<
       ref={rg.previewRef}
       title={rg.accessibleDescription}
       className={
+        // Controls the group borders
         isSubGroup
           ? cn(
               "flex border m-0",

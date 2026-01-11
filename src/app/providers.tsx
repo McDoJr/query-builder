@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 import { useState } from "react";
 
+// Providers section here
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
     () =>
@@ -18,7 +19,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
   );
 
   return (
+    // tanstack-query provider
     <QueryClientProvider client={queryClient}>
+      {/* query state/actions provider */}
       <QueryBuilderStateProvider>
         <ThemeProvider
           attribute="class"
