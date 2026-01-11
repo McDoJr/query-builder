@@ -1,5 +1,6 @@
 "use client";
 
+import { decodeQuery, encodeQuery } from "@/lib/serializer";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   isRuleGroup,
@@ -29,7 +30,7 @@ export function useQueryActions() {
       }
     }
 
-    params.set("query", encodeQueryToBase64(query));
+    params.set("query", encodeQuery(query));
 
     router.replace(`?${params.toString()}`, { scroll: false });
   }
@@ -39,7 +40,7 @@ export function useQueryActions() {
 
     if (!encoded) return;
 
-    const decoded = decodeQueryFromBase64<RuleGroupTypeIC>(encoded);
+    const decoded = decodeQuery<RuleGroupTypeIC>(encoded);
 
     if (decoded && typeof decoded === "object" && "rules" in decoded) {
       setQuery(decoded);
@@ -47,31 +48,4 @@ export function useQueryActions() {
   }
 
   return { saveQueryToUrl, restoreQueryFromUrl };
-}
-
-function encodeQueryToBase64(query: unknown): string {
-  const json = JSON.stringify(query);
-  const base64 = btoa(
-    encodeURIComponent(json).replace(/%([0-9A-F]{2})/g, (_, p1) =>
-      String.fromCharCode(parseInt(p1, 16)),
-    ),
-  );
-
-  return base64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-}
-
-function decodeQueryFromBase64<T = unknown>(value: string): T | null {
-  try {
-    const base64 = value.replace(/-/g, "+").replace(/_/g, "/");
-    const json = decodeURIComponent(
-      atob(base64)
-        .split("")
-        .map((c) => `%${c.charCodeAt(0).toString(16).padStart(2, "0")}`)
-        .join(""),
-    );
-
-    return JSON.parse(json);
-  } catch {
-    return null;
-  }
 }

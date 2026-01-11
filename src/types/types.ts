@@ -1,3 +1,4 @@
+import { DateRange } from "react-day-picker";
 import {
   Field,
   InputType,
@@ -60,3 +61,5 @@ export type CustomRuleType = RuleType & {
 };
 
 export type DateRangeUnit = "days" | "weeks" | "months";
+
+export type CustomDateRange = DateRange & { unit?: DateRangeUnit };

@@ -9,7 +9,7 @@ import {
   RuleGroupTypeAny,
   RuleGroupTypeIC,
 } from "react-querybuilder";
-import "react-querybuilder/dist/query-builder.css";
+// import "react-querybuilder/dist/query-builder.css";
 import { defaultOperators, getOperators } from "@/lib/query/operators";
 import { FieldSelector } from "./query/field-selector";
 import { CombinatorSelector } from "./query/combinator-selector";

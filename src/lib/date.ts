@@ -1,16 +1,18 @@
-import { DateRangeUnit } from "@/types/types";
+import { CustomDateRange, DateRangeUnit } from "@/types/types";
 import { DateRange } from "react-day-picker";
 
 export function getInferedDefaultValue(
   withHeader: boolean,
-  defaultRangeValue: DateRange | undefined,
+  defaultRangeValue: CustomDateRange | undefined,
   unit: DateRangeUnit,
   operator: string,
 ) {
   if (!withHeader || !defaultRangeValue) return "";
   const inferred = inferValueFromRange(defaultRangeValue, unit, operator);
 
-  return inferred && Number.isInteger(inferred) ? String(inferred - 1) : "";
+  return inferred
+    ? String(Math.round(inferred - (unit === "days" ? 1 : 0)))
+    : "";
 }
 
 export function inferValueFromRange(

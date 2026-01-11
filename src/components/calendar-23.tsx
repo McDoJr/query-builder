@@ -24,14 +24,13 @@ import {
   inferValueFromRange,
   isAfter,
 } from "@/lib/date";
-import { DateRangeUnit } from "@/types/types";
+import { CustomDateRange, DateRangeUnit } from "@/types/types";
 
 type Calendar23Props = React.ComponentProps<"button"> & {
-  defaultRangeValue: DateRange | undefined;
-  commitDateRange: (range: DateRange | undefined, unit?: DateRangeUnit) => void;
+  defaultRangeValue: CustomDateRange | undefined;
+  commitDateRange: (range: CustomDateRange | undefined) => void;
   withHeader?: boolean;
   operator: string;
-  unit?: DateRangeUnit;
 };
 
 export default function Calendar23({
@@ -39,16 +38,15 @@ export default function Calendar23({
   commitDateRange,
   withHeader = false,
   operator,
-  unit: defaultUnit,
 }: Calendar23Props) {
-  const [unit, setUnit] = React.useState<DateRangeUnit>(defaultUnit ?? "days");
+  const [unit, setUnit] = React.useState<DateRangeUnit>(
+    defaultRangeValue?.unit ?? "days",
+  );
   const [value, setValue] = React.useState<string>(
     getInferedDefaultValue(withHeader, defaultRangeValue, unit, operator),
   );
   const [open, setOpen] = React.useState(false);
-  const [range, setRange] = React.useState<DateRange | undefined>(
-    defaultRangeValue,
-  );
+  const [range, setRange] = React.useState<DateRange | undefined>();
 
   // to track where the changes came from
   const lastChangeSource = React.useRef<"header" | "calendar" | null>(null);
@@ -170,7 +168,7 @@ export default function Calendar23({
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
                         e.preventDefault();
-                        commitDateRange(range, withHeader ? unit : undefined);
+                        commitDateRange(range ? { ...range, unit } : undefined);
                         setOpen(false);
                       }
                     }}
@@ -210,7 +208,7 @@ export default function Calendar23({
                       size="sm"
                       onClick={() => {
                         setOpen(false);
-                        commitDateRange(range, withHeader ? unit : undefined);
+                        commitDateRange(range ? { ...range, unit } : undefined);
                       }}
                     >
                       Apply

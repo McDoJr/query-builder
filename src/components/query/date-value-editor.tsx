@@ -9,7 +9,7 @@ import {
 import Calendar23 from "../calendar-23";
 import { Calendar22 } from "../calendar-22";
 import DataTypeSelector from "./data-type-selector";
-import { CustomRuleType, DateRangeUnit } from "@/types/types";
+import { CustomDateRange, CustomRuleType, DateRangeUnit } from "@/types/types";
 
 const DateValueEditor = React.memo(function DateValueEditor<
   F extends FullField,
@@ -28,17 +28,16 @@ const DateValueEditor = React.memo(function DateValueEditor<
   const rule = originalRule as CustomRuleType;
   const ruleType = rule.inputType ?? inputType ?? "text";
 
-  // todo: persist unit on page refresh
-  function commitDateRange(range: DateRange | undefined, unit?: DateRangeUnit) {
+  function commitDateRange(range: CustomDateRange | undefined) {
     if (!range || !range.from || !range.to) return;
-
+    const withUnitOperator = operator === "last" || operator === "next";
     const values = [toISODateLocal(range.from), toISODateLocal(range.to)];
-    handleOnChange(
-      operator === "last" || operator === "next" ? values.join(",") : values,
-    );
+    if (withUnitOperator && range.unit) values.push(range.unit);
+    handleOnChange(withUnitOperator ? values.join(",") : values);
+    console.log(values);
   }
 
-  function getDateDefaultValue() {
+  function getDateDefaultValue(): CustomDateRange | undefined {
     switch (operator) {
       case "between":
       case "notBetween":
@@ -50,8 +49,8 @@ const DateValueEditor = React.memo(function DateValueEditor<
           : undefined;
       default: {
         if (value) {
-          const [from, to] = value.split(",");
-          return { from: new Date(from), to: new Date(to) };
+          const [from, to, unit] = value.split(",");
+          return { from: new Date(from), to: new Date(to), unit };
         }
         return undefined;
       }
@@ -74,7 +73,6 @@ const DateValueEditor = React.memo(function DateValueEditor<
           defaultRangeValue={getDateDefaultValue()}
           operator={operator}
           commitDateRange={commitDateRange}
-          unit={rule.unit}
         />
 
         <DataTypeSelector
