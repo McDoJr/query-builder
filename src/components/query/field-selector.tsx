@@ -39,7 +39,13 @@ export function FieldSelector(props: FieldSelectorProps) {
       <PopoverTrigger title="" asChild>
         <Button
           variant="ghost"
-          className="group text-sm rounded-sm bg-table-header dark:bg-table-header border-table-header group-hover:border-primary outline-none group-hover:bg-primary/10 hover:text-primary cursor-pointer focus-visible:border-none focus-visible:ring-0"
+          className={cn(
+            "group text-sm rounded-sm",
+            "bg-table-header dark:bg-table-header",
+            "border border-table-header",
+            "hover:border-primary hover:bg-primary/10 hover:text-primary",
+            "focus-visible:ring-0",
+          )}
         >
           <div className="flex items-center gap-1.5">
             <Icon
