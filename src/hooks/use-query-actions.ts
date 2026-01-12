@@ -8,10 +8,12 @@ import {
   RuleGroupTypeIC,
 } from "react-querybuilder";
 
+// just some utility hook to savse and
 export function useQueryActions() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  // function to save query to url
   function saveQueryToUrl(query?: RuleGroupTypeIC) {
     const params = new URLSearchParams(window.location.search);
 
@@ -35,6 +37,7 @@ export function useQueryActions() {
     router.replace(`?${params.toString()}`, { scroll: false });
   }
 
+  // function to restore query from the url
   function restoreQueryFromUrl(setQuery: (query: RuleGroupTypeIC) => void) {
     const encoded = searchParams.get("query");
 

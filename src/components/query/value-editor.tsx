@@ -11,6 +11,7 @@ import { useEffect, memo, useState } from "react";
 import { CustomRuleType } from "@/types/types";
 import DateValueEditor from "./date-value-editor";
 import DataTypeSelector from "./data-type-selector";
+import TextValueEditor from "./text-value-editor";
 
 /**
  * Component extracted from react-querybuilder and was modified
@@ -158,6 +159,10 @@ export const ValueEditor = memo(function ValueEditor<F extends FullField>(
         />
       </span>
     );
+  }
+
+  if (ruleType === "text") {
+    return <TextValueEditor {...(allProps as ValueEditorProps)} />;
   }
 
   // default text / number

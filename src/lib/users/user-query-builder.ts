@@ -30,6 +30,8 @@ export function buildUsersSQL(options: UsersQueryOptions) {
   const orderBySQL = buildSortSQL(sort);
   if (orderBySQL) sql += ` ${orderBySQL}`;
 
+  console.log(sql);
+
   return sql;
 }
 

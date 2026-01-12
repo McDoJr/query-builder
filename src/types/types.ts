@@ -1,3 +1,5 @@
+import { LucideProps } from "lucide-react";
+import { ForwardRefExoticComponent, RefAttributes } from "react";
 import { DateRange } from "react-day-picker";
 import {
   Field,
@@ -46,6 +48,12 @@ export type UsersQueryOptions = {
 export type FieldFor<T> = Field & {
   name: keyof T;
   rows: FieldRow[];
+};
+
+export type FieldWithIcon = Field & {
+  icon: ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+  >;
 };
 
 export type FieldRowAction = "update" | "delete";

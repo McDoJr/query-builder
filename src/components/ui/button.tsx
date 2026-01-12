@@ -56,7 +56,7 @@ function Button({
       data-slot="button"
       data-variant={variant}
       data-size={size}
-      className={cn(buttonVariants({ variant, size, className }), "rounded-sm")}
+      className={cn(buttonVariants({ variant, size }), "rounded-sm", className)}
       {...props}
     />
   );

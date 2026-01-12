@@ -28,3 +28,36 @@ export function formatDate(date: Date) {
     year: "numeric",
   }).format(date);
 }
+
+export function valueToString(value: any) {
+  if (typeof value === "string") return value;
+  return String(value);
+}
+
+export function collectTextFormat(values: string[]): string {
+  if (values.length === 0) return "Select Value...";
+
+  if (values.length === 1) {
+    return values[0];
+  }
+
+  if (values.length === 2) {
+    return `${values[0]} or ${values[1]}`;
+  }
+
+  if (values.length === 3) {
+    return `${values[0]}, ${values[1]} or ${values[2]}`;
+  }
+
+  // > 3
+  return `${values[0]}, ${values[1]} or ${values.slice(2).length} more`;
+}
+
+export function sortFieldValues(values: string[], selected: string[]) {
+  values.sort((a, b) => {
+    const aSelected = selected.includes(a);
+    const bSelected = selected.includes(b);
+
+    return Number(bSelected) - Number(aSelected);
+  });
+}

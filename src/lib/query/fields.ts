@@ -1,5 +1,6 @@
 import { Field } from "react-querybuilder";
 import { getIcon } from "./icons";
+import { FieldWithIcon } from "@/types/types";
 
 export const defaultFields: Field[] = [
   {
@@ -65,7 +66,7 @@ export function getField(fields: Field[], value?: string) {
   return fieldKeys.find((f) => f.name === value);
 }
 
-export function getFieldKeys(fields: Field[]) {
+export function getFieldKeys(fields: Field[]): FieldWithIcon[] {
   return fields
     .filter((f) => f.name !== "isDev" && f.name !== "birthdate")
     .map((f) => ({

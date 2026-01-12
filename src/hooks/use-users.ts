@@ -1,11 +1,11 @@
-import { normalizeQuery } from "@/lib/normalize-query";
+import { normalizeObject } from "@/lib/normalize-query";
 import { Sort, User } from "@/types/types";
 import { useQuery } from "@tanstack/react-query";
 import { RuleGroupTypeIC } from "react-querybuilder";
 
 export function useUsers(query: RuleGroupTypeIC, search: string, sort: Sort) {
   // normalize the query to be used as a key
-  const normalized = normalizeQuery({ query, search, sort });
+  const normalized = normalizeObject({ query, search, sort });
 
   return useQuery<User[]>({
     queryKey: ["users", normalized],

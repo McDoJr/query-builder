@@ -22,3 +22,15 @@ export const OPTIONS = {
     "birthdate",
   ],
 };
+
+export const FIELD_DESCRIPTIONS: Record<string, string> = {
+  name: "The full name of the user.",
+  age: "The age of the user.",
+  address: "The user's address.",
+  phone: "The user's phone number.",
+  email: "The user's email address.",
+  twitter: "The user's twitter",
+  isDev: "The user's position",
+  createdAt: "The time that the profile was created",
+  birthdate: "The user's birthdate",
+};

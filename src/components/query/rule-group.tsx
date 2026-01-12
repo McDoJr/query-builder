@@ -147,13 +147,8 @@ export const RuleGroup: React.MemoExoticComponent<
                   </div>
                 </Button>
               </PopoverTrigger>
-              <PopoverContent align="start" className="p-1">
-                <div
-                  ref={rg.dropRef}
-                  className={cn(rg.classNames.header, "p-1")}
-                >
-                  <RuleGroupHeaderElements {...rg} {...actions} />
-                </div>
+              <PopoverContent align="start" className="p-2 w-96">
+                <RuleGroupHeaderElements {...rg} {...actions} />
               </PopoverContent>
             </Popover>
           )}
