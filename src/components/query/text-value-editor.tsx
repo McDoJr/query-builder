@@ -19,6 +19,7 @@ const TextValueEditor = <F extends FullField>(
     handleOnChange,
     field,
     inputType,
+    operator,
     type,
     rule: originalRule,
   } = allProps;
@@ -36,6 +37,8 @@ const TextValueEditor = <F extends FullField>(
   const { data, isFetching } = useFieldValues(field, ruleType, selected);
   const [values, setValues] = useState<string[]>([]);
 
+  const operatorWithCheckbox = ["=", "!="].includes(operator);
+
   const filtered = useMemo(() => {
     if (!values) return [];
 
@@ -49,7 +52,18 @@ const TextValueEditor = <F extends FullField>(
     setValues(data ?? []);
   }, [data]);
 
+  // if value was undefined, then reset selected
+  useEffect(() => {
+    if (!value) setSelected([]);
+  }, [value]);
+
   const toggle = (value: string) => {
+    if (!operatorWithCheckbox) {
+      handleOnChange(value);
+      setOpen(false);
+      setSelectAll(false);
+      return;
+    }
     setSelected((prev) =>
       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
     );
@@ -57,7 +71,8 @@ const TextValueEditor = <F extends FullField>(
 
   // commit the selected values
   function commitValues() {
-    handleOnChange(selected.join(","));
+    const finalValue = operatorWithCheckbox ? selected.join(",") : search;
+    handleOnChange(finalValue);
     setOpen(false);
     const vals = [...values];
     sortFieldValues(vals, selected);
@@ -103,31 +118,42 @@ const TextValueEditor = <F extends FullField>(
               onChange={(e) => setSearch(e.target.value)}
               autoResize={false}
               onResetField={() => setSearch("")}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && search && !operatorWithCheckbox) {
+                  e.preventDefault();
+                  commitValues();
+                  (e.target as HTMLInputElement).blur();
+                }
+              }}
               className="w-full"
             />
             <div className="flex flex-col gap-1 max-h-58 overflow-y-auto">
               {data && !isFetching ? (
                 <React.Fragment>
-                  <div
-                    onClick={toggleSelectAll}
-                    className="group flex items-center cusror-pointer rounded-lg p-2 gap-2 dark:hover:border-primary hover:border-primary outline-none hover:bg-primary/10 hover:text-primary cursor-pointer focus-visible:border-none focus-visible:ring-0"
-                  >
-                    <Checkbox
-                      checked={selectAll}
-                      className="size-5 group-hover:border-primary cursor-pointer"
-                    />
-                    <Label>Select all in list ({filtered.length})</Label>
-                  </div>
+                  {operatorWithCheckbox && (
+                    <div
+                      onClick={toggleSelectAll}
+                      className="group flex items-center cusror-pointer rounded-lg p-2 gap-2 dark:hover:border-primary hover:border-primary outline-none hover:bg-primary/10 hover:text-primary cursor-pointer focus-visible:border-none focus-visible:ring-0"
+                    >
+                      <Checkbox
+                        checked={selectAll}
+                        className="size-5 group-hover:border-primary cursor-pointer"
+                      />
+                      <Label>Select all in list ({filtered.length})</Label>
+                    </div>
+                  )}
                   {filtered.map((item, index) => (
                     <div
                       className="group flex items-center cusror-pointer rounded-lg p-2 gap-2 dark:hover:border-primary hover:border-primary outline-none hover:bg-primary/10 hover:text-primary cursor-pointer focus-visible:border-none focus-visible:ring-0"
                       key={index}
                       onClick={() => toggle(item)}
                     >
-                      <Checkbox
-                        checked={selected.includes(item)}
-                        className="size-5 group-hover:border-primary cursor-pointer"
-                      />
+                      {operatorWithCheckbox && (
+                        <Checkbox
+                          checked={selected.includes(item)}
+                          className="size-5 group-hover:border-primary cursor-pointer"
+                        />
+                      )}
                       <Label>{item}</Label>
                     </div>
                   ))}
@@ -140,7 +166,7 @@ const TextValueEditor = <F extends FullField>(
             </div>
           </div>
           <Button
-            disabled={selected.length === 0}
+            disabled={selected.length === 0 && !search}
             className={cn(
               "rounded-b-lg rounded-t-none h-12",
               "disabled:opacity-100 disabled:text-neutral-400 dark:disabled:text-neutral-300",

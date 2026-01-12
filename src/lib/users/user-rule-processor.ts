@@ -16,13 +16,17 @@ export function getUserRuleProcessor(
   }
 
   // if the type in rule was not modified, then use the original field type
-  if ((rule.inputType ?? type) === "text") {
+  if (
+    (rule.inputType ?? type) === "text" &&
+    ["=", "!="].includes(rule.operator)
+  ) {
+    const customOperator = rule.operator === "=" ? "IN" : "NOT IN";
     const customField = type === "text" ? field : `(${field})::text`;
     const values = rule.value
       .split(",")
       .map((val: string) => `'${val}'`)
       .join(",");
-    return `${customField} IN (${values})`;
+    return `${customField} ${customOperator} (${values})`;
   }
 
   const result = defaultRuleProcessorSQL(rule, options, meta);
