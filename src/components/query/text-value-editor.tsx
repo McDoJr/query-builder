@@ -81,7 +81,7 @@ const TextValueEditor = <F extends FullField>(
   }
 
   const toggleSelectAll = () => {
-    if (selected.length < filtered.length) {
+    if (selected.length != filtered.length) {
       setSelected([...filtered]);
       setSelectAll(true);
       return;
@@ -99,6 +99,7 @@ const TextValueEditor = <F extends FullField>(
           if (!open) {
             setSearch("");
             setSelectAll(false);
+            setSelected([...defaultValues]);
           }
           setOpen(open);
         }}
