@@ -105,12 +105,15 @@ const TextValueEditor = <F extends FullField>(
         }}
       >
         <PopoverTrigger
+          title=""
           className={cn(
             "w-auto h-9 justify-between border font-normal group text-sm rounded-sm bg-table-header dark:bg-table-header border-table-header dark:hover:border-primary hover:border-primary outline-none hover:bg-primary/10 hover:text-primary cursor-pointer focus-visible:border-none focus-visible:ring-0",
             "flex items-center justify-start px-2",
           )}
         >
-          {collectTextFormat(value ? value.split(",") : [])}
+          <p className={!value ? "text-primary" : undefined}>
+            {collectTextFormat(value ? value.split(",") : [])}
+          </p>
         </PopoverTrigger>
         <PopoverContent className="p-0 rounded-lg flex flex-col" align="start">
           <div className="flex flex-col gap-4 p-3">
